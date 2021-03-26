@@ -26,15 +26,15 @@
 |-----------------|------------|-------------|
 | name            |  string    | null: false |
 | text            |  text      | null: false |
-| category        |  string    | null: false |
-| status          |  string    | null: false |
-| shipping        |  string    | null: false |
-| area            |  string    | null: false |
-| days            |  string    | null: false |
-| price           | integer    | null: false |
-| user_id         | references | null: false |
+| category_id     |  integer   | null: false |
+| status_id       |  integer   | null: false |
+| shipping_id     |  integer   | null: false |
+| area_id         |  integer   | null: false |
+| days_id         |  integer   | null: false |
+| price           |  integer   | null: false |
+| user            | references | null: false |
 
-- has_many :purchase_records
+- has_one :purchase_record
 - belongs_to :user
 
 
@@ -42,24 +42,24 @@
 
 |   Column        |   Type     |   Options   |
 |-----------------|------------|-------------|
-| users_id        | references | null: false |
-| items_id        | references | null: false |
+| user            | references | null: false |
+| item            | references | null: false |
 
 - belongs_to :user
-- has_one :item
-- belongs_to :address
+- belongs_to :item
+- has_one :address
 
 
 ## addresses テーブル
 
 |   Column        |   Type     |   Options   |
 |-----------------|------------|-------------|
-| prefecture      |  string    | null: false |
-| municipality    |  string    | null: false |
+| area            |  integer   | null: false |
+| municipality    |  integer   | null: false |
 | address         |  string    | null: false |
 | building        |  string    |             |
 | postal_code     |  string    | null: false |
 | tell            |  string    | null: false |
-| record_id       | references | null: false |
+| purchase_record | references | null: false |
 
-- has_one :purchase_record
+- belongs_to :purchase_record

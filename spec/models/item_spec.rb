@@ -42,15 +42,28 @@ RSpec.describe Item, type: :model do
     @item.valid?
     expect(@item.errors.full_messages).to include "Days can't be blank"
   end
-  it '販売価格は¥300~¥9,999,999の間のみ保存可能' do
-    @item.price = 250
+  it '販売価格299円以下は登録できない' do
+    @item.price = 299
     @item.valid?
     expect(@item.errors.full_messages).to include "Price must be greater than 299"
+  end
+  it '販売価格10,000,000以上は登録できない' do
+    @item.price = 10_000_000
+    @item.valid?
+    expect(@item.errors.full_messages).to include "Price must be less than 10000000"
   end
   it '販売価格は半角数字のみ保存可能' do
     @item.price = '５０００'
     @item.valid?
-    # binding.pry
     expect(@item.errors.full_messages).to include "Price is not a number"
+  end
+  it 'activ_hash項目が --- の場合は登録できない' do
+    @item.category_id = 1
+    @item.status_id = 1
+    @item.shipping_id = 1
+    @item.area_id = 1
+    @item.days_id = 1
+    @item.valid?
+    expect(@item.errors.full_messages).to include "Category must be other than 1", "Status must be other than 1", "Shipping must be other than 1", "Area must be other than 1", "Days must be other than 1"
   end
 end

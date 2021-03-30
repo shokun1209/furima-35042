@@ -8,14 +8,17 @@ class Item < ApplicationRecord
   belongs_to_active_hash :user
   has_one_attached :image
 
-  validates :name, presence: true, length: { maximum: 40 }
-  validates :text, presence: true, length: { maximum: 1000 }
-  validates :category_id, presence: true
-  validates :status_id, presence: true
-  validates :shipping_id, presence: true
-  validates :area_id, presence: true
-  validates :days_id, presence: true
-  validates :price, presence: true, numericality: { only_integer: true, greater_than: 299, less_than: 10_000_000 }
-  validates :image, presence: true
-  validates :category_id, numericality: { other_than: 1 }
+  with_options presence: true do
+  validates :name, length: { maximum: 40 }
+  validates :text, length: { maximum: 1000 }
+  validates :image
+  validates :price, numericality: { only_integer: true, greater_than: 299, less_than: 10_000_000 }
+    with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :status_id
+    validates :shipping_id
+    validates :area_id
+    validates :days_id
+    end
+  end
 end

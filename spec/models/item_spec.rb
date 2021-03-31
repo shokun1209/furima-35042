@@ -57,13 +57,29 @@ RSpec.describe Item, type: :model do
     @item.valid?
     expect(@item.errors.full_messages).to include "Price is not a number"
   end
-  it 'activ_hash項目が --- の場合は登録できない' do
+  it 'カテゴリーの項目が --- の場合は登録できない' do
     @item.category_id = 1
+    @item.valid?
+    expect(@item.errors.full_messages).to include "Category must be other than 1"
+  end
+  it '商品状態の項目が --- の場合は登録できない' do
     @item.status_id = 1
+    @item.valid?
+    expect(@item.errors.full_messages).to include "Status must be other than 1"
+  end
+  it '送料の項目が --- の場合は登録できない' do
     @item.shipping_id = 1
+    @item.valid?
+    expect(@item.errors.full_messages).to include "Shipping must be other than 1"
+  end
+  it '発送元の地域の項目が --- の場合は登録できない' do
     @item.area_id = 1
+    @item.valid?
+    expect(@item.errors.full_messages).to include "Area must be other than 1"
+  end
+  it '発送までの日数の項目が --- の場合は登録できない' do
     @item.days_id = 1
     @item.valid?
-    expect(@item.errors.full_messages).to include "Category must be other than 1", "Status must be other than 1", "Shipping must be other than 1", "Area must be other than 1", "Days must be other than 1"
+    expect(@item.errors.full_messages).to include "Days must be other than 1"
   end
 end

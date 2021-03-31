@@ -18,7 +18,7 @@ class Item < ApplicationRecord
     validates :status_id
     validates :shipping_id
     validates :area_id
-    validates :days_id
+    validates :delivery_id
     end
   end
 end

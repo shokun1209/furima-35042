@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destory]
   before_action :set_validates, only: [:edit, :update]
 
   def index
@@ -32,6 +32,9 @@ class ItemsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destory
   end
 
   private

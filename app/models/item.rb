@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :delivery
   belongs_to_active_hash :user
   has_one_attached :image
+  has_one :purchase_record
 
   with_options presence: true do
   validates :name, length: { maximum: 40 }

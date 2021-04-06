@@ -5,7 +5,7 @@ class PurchaseRecordAddress
   with_options presence: true do
     validates :user_id
     validates :item_id
-    validates :area_id
+    validates :area_id, numericality: { other_than: 1 }
     validates :municipality
     validates :address
     validates :tell, format: {with: /\A\d{11}\z/} #11桁数字 ハイフン無し

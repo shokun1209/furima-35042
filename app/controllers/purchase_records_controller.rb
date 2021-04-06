@@ -23,7 +23,7 @@ class PurchaseRecordsController < ApplicationController
   end
 
   def set_validates
-    if @item.user_id == current_user.id
+    if @item.user_id == current_user.id || @item.purchase_record.present?
       redirect_to root_path
     end
   end

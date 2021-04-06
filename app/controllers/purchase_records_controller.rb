@@ -1,11 +1,11 @@
 class PurchaseRecordsController < ApplicationController
   def index
     @purchase_record_address = PurchaseRecordAddress.new
+    @item = Item.find(params[:item_id])
   end
 
   def create
     @purchase_record_address = PurchaseRecordAddress.new(purchase_records_params)
-    # binding.pry
     if @purchase_record_address.save
       redirect_to root_path
     else

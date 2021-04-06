@@ -3,5 +3,5 @@ class PurchaseRecord < ApplicationRecord
   belongs_to :user
   belongs_to :item
   has_one :address
-  validates :token, presence: true
+  # validates :token, presence: true
 end

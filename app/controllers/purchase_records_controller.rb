@@ -1,5 +1,7 @@
 class PurchaseRecordsController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
+  before_action :set_validates, only:[:index, :create]
   def index
     @purchase_record_address = PurchaseRecordAddress.new
   end
@@ -16,9 +18,14 @@ class PurchaseRecordsController < ApplicationController
   end
 
   private
-
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def set_validates
+    if @item.user_id == current_user.id
+      redirect_to root_path
+    end
   end
 
   def purchase_records_params

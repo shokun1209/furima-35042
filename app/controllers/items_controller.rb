@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   before_action :set_validates, only: [:edit, :update, :destroy]
 
   def index
-    @items = Item.all.order("created_at DESC")
+    @items = Item.all.order('created_at DESC')
   end
 
   def new
@@ -35,9 +35,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.destroy
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.destroy
   end
 
   private
@@ -46,13 +44,12 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :text, :category_id, :status_id, :shipping_id, :area_id, :delivery_id, :price,
                                  :image).merge(user_id: current_user.id)
   end
+
   def set_item
     @item = Item.find(params[:id])
   end
 
   def set_validates
-    unless current_user.id == @item.user.id
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user.id == @item.user.id
   end
 end

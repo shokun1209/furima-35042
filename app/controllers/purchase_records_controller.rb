@@ -9,21 +9,26 @@ class PurchaseRecordsController < ApplicationController
     if @purchase_record_address.valid?
       set_pay
       @purchase_record_address.save
-      return redirect_to root_path
+      redirect_to root_path
     else
       render :index
     end
   end
 
   private
+
   def set_item
     @item = Item.find(params[:item_id])
   end
+
   def purchase_records_params
-    params.require(:purchase_record_address).permit(:area_id, :municipality, :address, :building, :postal_code, :tell).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:purchase_record_address).permit(:area_id, :municipality, :address, :building, :postal_code, :tell).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
+
   def set_pay
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: purchase_records_params[:token],

@@ -27,17 +27,17 @@ RSpec.describe PurchaseRecordAddress, type: :model do
     it '郵便番号は半角数字のみ使用可能' do
       @purchase_record.postal_code = '123-456a'
       @purchase_record.valid?
-      expect(@purchase_record.errors.full_messages).to include "Postal code is invalid"
+      expect(@purchase_record.errors.full_messages).to include 'Postal code is invalid'
     end
     it '郵便番号は3桁-4桁の構成のみ使用可能' do
       @purchase_record.postal_code = '1234-567'
       @purchase_record.valid?
-      expect(@purchase_record.errors.full_messages).to include "Postal code is invalid"
+      expect(@purchase_record.errors.full_messages).to include 'Postal code is invalid'
     end
     it '郵便番号はハイフンが無ければ商品を購入できない' do
-      @purchase_record.postal_code = 12345678
+      @purchase_record.postal_code = 12_345_678
       @purchase_record.valid?
-      expect(@purchase_record.errors.full_messages).to include "Postal code is invalid"
+      expect(@purchase_record.errors.full_messages).to include 'Postal code is invalid'
     end
     it '都道府県が選択されていなければ商品を購入できない' do
       @purchase_record.area_id = ''
@@ -47,7 +47,7 @@ RSpec.describe PurchaseRecordAddress, type: :model do
     it '都道府県は{ --- }を選択できない' do
       @purchase_record.area_id = 1
       @purchase_record.valid?
-      expect(@purchase_record.errors.full_messages).to include "Area must be other than 1"
+      expect(@purchase_record.errors.full_messages).to include 'Area must be other than 1'
     end
     it '市区町村が空では商品を購入できない' do
       @purchase_record.municipality = ''
@@ -67,17 +67,17 @@ RSpec.describe PurchaseRecordAddress, type: :model do
     it '電話番号に全角数字は使用できない' do
       @purchase_record.tell = '０９０１２３４５６７８'
       @purchase_record.valid?
-      expect(@purchase_record.errors.full_messages).to include "Tell is invalid"
+      expect(@purchase_record.errors.full_messages).to include 'Tell is invalid'
     end
     it '電話番号に英語は使用できない' do
       @purchase_record.tell = 'abc12345678'
       @purchase_record.valid?
-      expect(@purchase_record.errors.full_messages).to include "Tell is invalid"
+      expect(@purchase_record.errors.full_messages).to include 'Tell is invalid'
     end
     it '電話番号は11桁以内のみ登録可能' do
       @purchase_record.tell = '090123456789'
       @purchase_record.valid?
-      expect(@purchase_record.errors.full_messages).to include "Tell is invalid"
+      expect(@purchase_record.errors.full_messages).to include 'Tell is invalid'
     end
   end
 end

@@ -10,4 +10,7 @@ class User < ApplicationRecord
   validates :first_name_kana, presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/ } # カタカナのみ
   validates :last_name_kana, presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/ } # カタカナのみ
   validates :birthday, presence: true
+
+  has_many :items
+  has_many :purchase_records
 end

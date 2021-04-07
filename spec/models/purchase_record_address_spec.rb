@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe PurchaseRecordAddress, type: :model do
   before do
-    @purchase_record = FactoryBot.build(:purchase_record_address)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @purchase_record = FactoryBot.build(:purchase_record_address, user_id: user.id, item_id: item.id)
+    sleep 0.3
   end
   context '購入ができる時' do
     it '全ての項目を正しく入力できていれば商品が購入できる' do
@@ -78,6 +81,16 @@ RSpec.describe PurchaseRecordAddress, type: :model do
       @purchase_record.tell = '090123456789'
       @purchase_record.valid?
       expect(@purchase_record.errors.full_messages).to include 'Tell is invalid'
+    end
+    it 'user_idが空では登録できない' do
+      @purchase_record.user_id = ''
+      @purchase_record.valid?
+      expect(@purchase_record.errors.full_messages).to include "User can't be blank"
+    end
+    it 'item_idが空では登録できない' do
+      @purchase_record.item_id = ''
+      @purchase_record.valid?
+      expect(@purchase_record.errors.full_messages).to include "Item can't be blank"
     end
   end
 end

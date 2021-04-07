@@ -6,8 +6,6 @@ FactoryBot.define do
     municipality { Gimei.city.kanji }
     address { '翔君10-20' }
     building { '翔君ビル A棟 401号' }
-    tell { 12_345_678_901 }
-    user_id { 1 }
-    item_id { 1 }
+    tell { '12345678901' }
   end
 end
